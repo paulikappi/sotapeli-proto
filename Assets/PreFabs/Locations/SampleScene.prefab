@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2363358944606964616}
   - component: {fileID: -1946309616859992171}
+  - component: {fileID: -7288111361054342005}
   m_Layer: 0
   m_Name: SampleScene
   m_TagString: Untagged
@@ -47,6 +48,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   location: {fileID: 11400000, guid: c11b839c8df1665438f03596012f6e67, type: 2}
   locationName: Sample Location
+  scene:
+    m_Handle: 0
+--- !u!114 &-7288111361054342005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822512382278089717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd23f86e044e3f4a8dc588f7f4e19aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenePath: Assets/Scenes/SampleScene.unity
 --- !u!1 &7558463880195593640
 GameObject:
   m_ObjectHideFlags: 0

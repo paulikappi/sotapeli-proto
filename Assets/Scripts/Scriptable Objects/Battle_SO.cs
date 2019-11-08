@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(fileName = "Battle of ", menuName = "Scriptable Objects/Battle", order = 2)]
 public class Battle_SO : ScriptableObject
 {
-    [SerializeField] Location battleLocation;
-    [SerializeField] ScenePicker battleScene = new ScenePicker();
+    [SerializeField] Location battleLocation;    
 
     [SerializeField] List<Faction> side1 = new List<Faction>();
     [SerializeField] List<Faction> side2 = new List<Faction>();
