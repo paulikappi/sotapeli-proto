@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Location : MonoBehaviour
-{
+{    
     [SerializeField] Location_SO location;
     [SerializeField] string locationName;
-    [SerializeField] Scene scene;
 
     private void Awake()
     {
