@@ -6,18 +6,11 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class GameController : MonoBehaviour
 {
-    [SerializeField] Battle_SO battle;
+    [SerializeField] Battle battle;
     ObjectPooler pooler;
-    Location battleScene;
 
     private void Start()
-    {
-        if (battle != null)
-        {
-            battleScene = battle.Location;           
-
-        }
-        
+    {        
         pooler = GetComponent<ObjectPooler>();
 
         FetchBattle_SO();
@@ -25,8 +18,11 @@ public class GameController : MonoBehaviour
 
     void FetchBattle_SO()
     {
-        SceneManager.LoadScene(battle.Location.GetComponent<ScenePicker>().scenePath, LoadSceneMode.Additive);
-        Debug.Log(battle.Location.GetComponent<ScenePicker>().scenePath);
+        if (battle.Location != null)
+        {
+            //SceneManager.LoadScene(battle.Location.GetComponent<ScenePicker>().scenePath, LoadSceneMode.Additive);
+            //Debug.Log(battle.Location.GetComponent<ScenePicker>().scenePath);
+        }        
     }
 
     void SetObjectPoolerObjects()

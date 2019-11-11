@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878cfbd5d75153c4787a17c21fa1e1b3, type: 3}
+  m_Name: 02 Divisioona
+  m_EditorClassIdentifier: 
+  faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
+  commanderName: Eversti
+  soldierCount: 16348
+  subFormations:
+  - {fileID: 11400000, guid: 58b65bd4109c44042864bd4d833b26c5, type: 2}
+  - {fileID: 11400000, guid: 58b65bd4109c44042864bd4d833b26c5, type: 2}
+  - {fileID: 11400000, guid: 58b65bd4109c44042864bd4d833b26c5, type: 2}
+  - {fileID: 11400000, guid: d6329e36ac6a50f41ac3cac0dad035cc, type: 2}
+  - {fileID: 11400000, guid: d6c80191a2fbff14088ec92a25162218, type: 2}
+  - {fileID: 11400000, guid: cf7841b2dbf9be94cb61f1254b218f98, type: 2}
+  - {fileID: 11400000, guid: 16d3451a4c1dc9642ae43fd9ef25798f, type: 2}
+  - {fileID: 11400000, guid: 9f64771ea5096ea48b65aee5026f0690, type: 2}
