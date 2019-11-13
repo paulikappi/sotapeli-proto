@@ -8,20 +8,24 @@ public class Battle : ScriptableObject
 {
     [SerializeField] GameObject battleLocation;    
 
-    [SerializeField] List<Faction> side1 = new List<Faction>();
-    [SerializeField] List<Faction> side2 = new List<Faction>();
+    public List<Faction> factions1 = new List<Faction>();
+    public List<Faction> factions2 = new List<Faction>();
 
     //[SerializeField] List<GameObject> faction1SpawnAreas = new List<GameObject>();
     //[SerializeField] List<GameObject> faction2SpawnAreas = new List<GameObject>();
 
-    //[SerializeField] List<Army> faction1ArmyList = new List<Army>();
-    //[SerializeField] List<Army> faction2ArmyList = new List<Army>();
+    public List<Formation> faction1FormationList = new List<Formation>();
+    public List<Formation> faction2FormationList = new List<Formation>();
 
     public GameObject Location
     {
         get
         {
             return battleLocation;            
+        }
+        set 
+        {
+            this.Location = Location;
         }
     }
 }

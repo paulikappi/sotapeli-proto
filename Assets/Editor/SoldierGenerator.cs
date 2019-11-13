@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
 public class SoldierGenerator : EditorWindow
 {
     int count = 1;    
@@ -10,32 +11,39 @@ public class SoldierGenerator : EditorWindow
     float myFloat;
 
     static List<Faction> factionList;
-    static string[] factionNameList;
+    string[] factionNameList;
     static List<int> factionIndexList;
+    List<GameObject> objList;
+    GameManager GameManager;
 
     [MenuItem("Window/Soldier Generator")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(SoldierGenerator));
-    }
+    }    
 
-    static void Init()
+    void Start()
     {
         factionNameList = GetScriptableObjectNameArray<Faction>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Debug.Log("Game Manager set");
     }
 
     public static string[] GetScriptableObjectNameArray<T>() where T : ScriptableObject
     {
         string[] factionNameArray;
         factionNameArray = AssetDatabase.FindAssets(typeof(Faction).Name);
-        Debug.Log(factionNameArray);
         T[] a = new T[factionNameArray.Length];        
         
         for (int i = 0; i < factionNameArray.Length; i++)
         {
             string path = AssetDatabase.GUIDToAssetPath(factionNameArray[i]);
             a[i] = AssetDatabase.LoadAssetAtPath<T>(path);
-            factionIndexList.Add(i);
+            if (factionIndexList != null)
+            {
+                factionIndexList.Add(i);
+            }
+            
         }        
         return factionNameArray;
     }
@@ -47,14 +55,18 @@ public class SoldierGenerator : EditorWindow
         //EditorGUILayout.LongField("Amount");
         //EditorGUILayout.Popup(factionIndex, factionList);
        
-        if (GUILayout.Button("Generate"))
+        
+        if (GUILayout.Button("Pool Battle Formations"))
         {
-            GenerateSoldiers(myFloat);
+            if (GameManager != null)
+            {                
+            }
+            else
+            {
+                Debug.LogError("Game Manager error");
+            }
+            
         }
-    }
-
-    void GenerateSoldiers(float i)
-    {
     }
 }
 

@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 878cfbd5d75153c4787a17c21fa1e1b3, type: 3}
-  m_Name: 03 Huoltokomppania
+  m_Name: Squad
   m_EditorClassIdentifier: 
-  faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
-  commanderName: Kapteeni
-  soldierCount: 200
+  faction: {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
+  commanderName: Sergeant
+  soldierCount: 10
   formationPrefabs:
   - objectToPool: {fileID: 0}
-    amountToPool: 0
-    canExpand: 0
-  hierarchyLevel: 0
+    amountToPool: 1
+    canExpand: 1
+  - objectToPool: {fileID: 4045118329729203410, guid: 7562da3ed33846d4bb19f4c4ba94ec8f,
+      type: 3}
+    amountToPool: 9
+    canExpand: 1
+  hierarchyLevel: 1
   subFormations: []
-  superiorFormations: []
+  superiorFormationList: []

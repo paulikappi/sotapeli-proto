@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
     Tuple<GameObject, int> spawnTuple;
     public Queue<Tuple<GameObject, int>> spawnQueue; 
 
-    SoldierData soldierData;
+    WarObject soldierData;
     public int maxSpawnAmount;
     bool readyStatus;
     [SerializeField] GameObject nextSpawning;
@@ -48,17 +48,17 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            InvokeRepeating("Spawn", 0.5f, spawnInterval);
+            InvokeRepeating("SpawnNext", 0.5f, spawnInterval);
         }
         */                
     }
-    public void Spawn()
+    public void SpawnNext()
     {        
         if (spawnQueue != null && spawnQueue.Count > 0)
         {
-            Debug.Log("Spawn");
+            Debug.Log("SpawnNext");
             
-            SpawnTuple(spawnQueue.Dequeue());
+            SpawnAmount(spawnQueue.Dequeue());
 
             if (spawnQueue.Count > 0)
             {
@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
         spawnQueue.Enqueue(qItem);
     }
 
-    void SpawnTuple(Tuple<GameObject, int> tuple)
+    void SpawnAmount(Tuple<GameObject, int> tuple)
     {
         readyStatus = false;
         
@@ -89,7 +89,7 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0 ; i < spawnCount; i++)
         {
-            obj = ObjectPooler.SharedInstance.GetPooledObject(obj.name + "(Clone)");
+            obj = FindObjectOfType<ObjectPooler>().GetPooledObjectByName(obj.name + "(Clone)");
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
             obj.SetActive(true);
@@ -110,8 +110,8 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < instanceCount; i++)
             {
-                GameObject soldier = ObjectPooler.SharedInstance.GetPooledObject("SoldierGreen" + "(Clone)");
-                soldierData = soldier.GetComponent<SoldierData>();
+                GameObject soldier = ObjectPooler.SharedInstance.GetPooledObjectByName("SoldierGreen" + "(Clone)");
+                soldierData = soldier.GetComponent<WarObject>();
                 if (soldier != null)
                 {
                     soldier.transform.position = transform.position;
@@ -128,11 +128,11 @@ public class Spawner : MonoBehaviour
         
     }
 
-    void Spawn()
+    void SpawnNext()
     {
         if (spawnedCount < instanceCount)
         {
-            GameObject soldier = ObjectPooler.SharedInstance.GetPooledObject("Soldier_Green" + "(Clone)");
+            GameObject soldier = ObjectPooler.SharedInstance.GetPooledObjectByName("Soldier_Green" + "(Clone)");
             if (soldier != null)
             {
                 soldier.transform.position = transform.position;
@@ -143,7 +143,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            CancelInvoke("Spawn");
+            CancelInvoke("SpawnNext");
         }
     }
     */

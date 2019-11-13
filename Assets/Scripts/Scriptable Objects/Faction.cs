@@ -28,9 +28,13 @@ public class Faction : ScriptableObject
     [SerializeField] List<string> nameList;
     string nameJson = "Assets/GermanSurnames.json";
 
-
     [SerializeField] List<Army> armyList = new List<Army>();
     [SerializeField] List<Soldier> soldierList = new List<Soldier>();
+
+    public string Name
+    {
+        get { return factionName; }
+    }
     /*
     private void OnEnable()
     {

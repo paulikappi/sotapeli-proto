@@ -4,18 +4,23 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [System.Serializable]
-public class SoldierData : MonoBehaviour
+public class WarObject : MonoBehaviour
 {
-    [SerializeField] string soldierName;
-    [SerializeField] float speed;
-    [SerializeField] float acceleration;
-    [SerializeField] Squad squad;
-    [SerializeField] Company company;
-    [SerializeField] Army army;
+    [SerializeField] string objectName;
+    public List<Formation> commandingFormations;
     [SerializeField] Faction faction;
 
     NavMeshAgent agent;
     GameObject objective;
+
+    public string Name
+    {
+        get { return objectName; }
+    }
+    public Faction Faction
+    {
+        get { return faction; }
+    }
 
     void OnEnable()
     {

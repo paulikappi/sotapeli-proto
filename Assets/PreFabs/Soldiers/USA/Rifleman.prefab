@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1085186579098978867}
   - component: {fileID: 1412150475938877805}
+  - component: {fileID: 8619568493057545230}
   m_Layer: 0
-  m_Name: soldier
+  m_Name: Rifleman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,18 +45,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
-  projectileLauncher: {fileID: 0}
-  attackObjective: {fileID: 0}
-  objDist: 0
-  maxObjDist: 0
-  ammoVelocity: 853
-  moveSpeed: 0
-  rotationSpeed: 10
-  isMoving: 0
-  isFiring: 0
-  enemyContact: 0
-  enemyRBList: []
+  objectName: Rifleman
+  commandingFormations: []
+  faction: {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
+--- !u!195 &8619568493057545230
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045118329729203410}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 16
+  m_Acceleration: 40
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 30
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
 --- !u!1 &5376542834381028490
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +83,7 @@ GameObject:
   - component: {fileID: 81556168615600784}
   - component: {fileID: 393861940866388831}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: SoldierMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f88eb452a37f66540859c52f5f2fc7d0, type: 2}
+  - {fileID: 2100000, guid: 93e2b2125c492f146816b5218a1a29f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

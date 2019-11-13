@@ -15,4 +15,11 @@ MonoBehaviour:
   faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
   commanderName: "V\xE4nrikki"
   soldierCount: 40
+  formationPrefabs:
+  - objectToPool: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
+      type: 3}
+    amountToPool: 10
+    canExpand: 0
+  hierarchyLevel: 0
   subFormations: []
+  superiorFormationList: []

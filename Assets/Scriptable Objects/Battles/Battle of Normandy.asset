@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleLocation: {fileID: 1822512382278089717, guid: 76f8890b91e642a499b6ed85a96eb793,
     type: 3}
-  side1:
-  - {fileID: 11400000, guid: 8eeb7a0eec8758c46bb8b25bead1dc10, type: 2}
-  side2:
+  factions1:
+  - {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
+  factions2:
   - {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
+  faction1FormationList:
+  - {fileID: 11400000, guid: 1b2716b5d980cf745b40d943fd620924, type: 2}
+  faction2FormationList:
+  - {fileID: 11400000, guid: 1727516161913bf479ce0427c0937ead, type: 2}

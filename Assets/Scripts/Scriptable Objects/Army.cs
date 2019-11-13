@@ -8,8 +8,9 @@ public class Army : ScriptableObject
     [SerializeField] Faction faction;
     [SerializeField] string groupName;
     [SerializeField] Soldier Commander;
-    int squadCount;    
-        
+    int squadCount;
+
+    public List<Formation> formationList;
     [SerializeField] List<Soldier> soldierList;
 
     GameObject armyCommander;
