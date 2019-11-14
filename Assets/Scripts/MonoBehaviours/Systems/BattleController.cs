@@ -21,6 +21,7 @@ public class BattleController : MonoBehaviour
     GameObject formationObject;
 
     int hierarchyCount;
+    [SerializeField] List<ObjectPoolItem> poolItems = new List<ObjectPoolItem>();
 
     public BattleData Battle
     {
@@ -36,22 +37,21 @@ public class BattleController : MonoBehaviour
 
     void Start()
     {
-        SetPoolerItems();
+        InitFormations();
+        PoolBattleFormationObjects();
     }
 
-    void SetPoolerItems()
-    {
-        List<ObjectPoolItem> items = new List<ObjectPoolItem>();
+    void InitFormations()
+    {        
         if (battleFormations != null)
         {
-            foreach (FormationData f in battleFormations)
+            foreach (FormationData formationData in battleFormations)
             {
-                foreach (ObjectPoolItem o in f.formationPrefabs)
-                    items.Add(o);
-            }
-            pooler.AddPoolObjectList(items);
-        }
-        
+                Formation formationInstance = new Formation();
+                formationInstance.Data = formationData;
+                formationInstance.PoolSubFormations();
+            }            
+        }        
     }
 
     void LoadBattleScene()
@@ -92,8 +92,7 @@ public class BattleController : MonoBehaviour
                     }
                 }
             }
-        }
-        
+        }        
     }
 
     public void SetBattleData(GameObject location, List<FactionData> factions1, List<FactionData> factions2)
@@ -105,21 +104,10 @@ public class BattleController : MonoBehaviour
         battle.faction2FormationList = faction2FormationList;
     }
 
-    public void InitBattleFormations()
+    //Called from game manager
+    //Creates gameobjects for each formation and sets their commanders and subordinates
+    public void PoolBattleFormationObjects()
     {
-        if (battleFormations != null)
-        {
-            foreach (FormationData f in battleFormations)
-            {
-                formationObject = new GameObject();
-                if (formationObject != null)
-                {                    
-                    formationObject.name = f.name;
-                    Formation formation = formationObject.AddComponent<Formation>();
-                    formation.Data = f;
-                    formationsObjects.Add(formationObject);
-                }                
-            }
-        }        
+        
     }
 }

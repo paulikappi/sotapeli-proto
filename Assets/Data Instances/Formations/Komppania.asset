@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f0a840cdc5b1d459d9dfdcb8a0b5d8, type: 3}
+  m_Name: Komppania
+  m_EditorClassIdentifier: 
+  Faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
+  Commander: {fileID: 4045118329729203410, guid: 7e61c457ce5fe814aadbec7ccba65b95,
+    type: 3}
+  LeaderPoolItem:
+    objectToPool: {fileID: 0}
+    amountToPool: 1
+    canExpand: 1
+    subordinates: []
+    commanders: []
+    faction: {fileID: 0}
+  Subordinates:
+  - objectToPool: {fileID: 0}
+    amountToPool: 0
+    canExpand: 0
+    subordinates: []
+    commanders: []
+    faction: {fileID: 0}
+  hierarchyLevel: 0
+  subFormationTypes:
+  - {fileID: 11400000, guid: 4ba98425e794b404087af5b8759ffead, type: 2}
+  - {fileID: 11400000, guid: 4ba98425e794b404087af5b8759ffead, type: 2}
+  - {fileID: 11400000, guid: 4ba98425e794b404087af5b8759ffead, type: 2}
+  - {fileID: 11400000, guid: 4ba98425e794b404087af5b8759ffead, type: 2}
+  superiorFormationTypes: []

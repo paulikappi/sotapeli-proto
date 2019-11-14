@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommanderOrder : MonoBehaviour
+[System.Serializable]
+public class CommanderOrder : ScriptableObject
 {
     // Start is called before the first frame update
     void Start()

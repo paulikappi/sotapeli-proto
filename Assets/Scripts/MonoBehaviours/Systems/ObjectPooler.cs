@@ -6,31 +6,40 @@ using UnityEngine;
 public class ObjectPoolItem
 {
     public GameObject objectToPool;
-    public int amountToPool;
+    public int amountToPool = 1;
     public bool canExpand = true;
+
+    public List<GameObject> subordinates;
+    public List<GameObject> commanders;
+    public FactionData faction;
 }
 
 public class ObjectPooler : MonoBehaviour
 {    
-    public List<GameObject> pooledObjects;
+    public List<GameObject> pooledObjects = new List<GameObject>();
     public List<ObjectPoolItem> itemsToPool;
     
     public BattleController battleController;
-    public ObjectPooler pooler;
+    public static ObjectPooler SharedInstance;
     public GameManager gameManager;
+
+    private void Awake()
+    {
+        SharedInstance = this;
+    }
 
     private void Start()
     {
+        
         gameManager = FindObjectOfType<GameManager>();
         battleController = FindObjectOfType<BattleController>();
-        pooler = FindObjectOfType<ObjectPooler>();
+        
 
-        Invoke("PoolObjects", 1);
+        Invoke("PoolObjects", 0.5f);
     }
 
     public void PoolObjects()
-    {
-        pooledObjects = new List<GameObject>();
+    {        
         if (itemsToPool != null)
         {            
             Debug.Log("Pool");
@@ -42,7 +51,11 @@ public class ObjectPooler : MonoBehaviour
                     if (item.objectToPool != null)
                     {
                         GameObject obj = (GameObject)Instantiate(item.objectToPool);
-
+                        if (obj.GetComponent<WarObject>() == true)
+                        {
+                            WarObject objData = obj.GetComponent<WarObject>();
+                            objData.Faction = item.faction;
+                        }
                         obj.SetActive(false);
                         pooledObjects.Add(obj);
                     }                    
@@ -56,9 +69,9 @@ public class ObjectPooler : MonoBehaviour
     /*
     public void PoolSubFormations()
     {
-        if (pooler != null)
+        if (objectPooler != null)
         {            
-            foreach (ObjectPoolItem g in formation.formationPrefabs)
+            foreach (ObjectPoolItem g in formation.Subordinates)
             {
                 if (g.objectToPool.GetComponent<WarObject>() != null)
                 {
@@ -66,11 +79,11 @@ public class ObjectPooler : MonoBehaviour
                     war.commandingFormations.Add(this);
                 }
 
-                pooler.AddPoolObject(g);
+                objectPooler.AddGameObject(g);
             }
-            if (subFormations.Count > 0)
+            if (SubFormationTypes.Count > 0)
             {
-                foreach (FormationData subFormation in subFormations)
+                foreach (FormationData subFormation in SubFormationTypes)
                 {
                     subFormation.PoolSubFormations();
                     subFormation.superiorFormationList.Add(this);
@@ -80,21 +93,34 @@ public class ObjectPooler : MonoBehaviour
         }
         else
         {
-            Debug.LogError(this.name + " missing pooler");
+            Debug.LogError(this.name + " missing objectPooler");
         }
     }*/
+    public void AddPoolItem(ObjectPoolItem item)
+    {
+        itemsToPool.Add(item);
+    }
 
-    public void AddPoolObjectList(List<ObjectPoolItem> list)
+    public void AddPoolItemList(List<ObjectPoolItem> list)
     {
         foreach (ObjectPoolItem item in list)
         {
             itemsToPool.Add(item);
         }
     }
-
-    public void AddPoolObject(ObjectPoolItem item)
+    public void AddGameObject(GameObject item)
     {
-        itemsToPool.Add(item);
+        ObjectPoolItem poolitem = new ObjectPoolItem();
+        poolitem.amountToPool = 1;
+        poolitem.canExpand = false;
+        poolitem.objectToPool = item;
+
+        itemsToPool.Add(poolitem);
+    }
+
+    public void SetGameObjectToPooledList(GameObject item)
+    {
+        pooledObjects.Add(item);
     }
 
     public GameObject GetPooledObjectByName (string name)
@@ -113,7 +139,6 @@ public class ObjectPooler : MonoBehaviour
                 if (item.canExpand)
                 {
                     GameObject obj = (GameObject)Instantiate(item.objectToPool);
-                    obj.transform.parent = GameObject.Find("Green").transform;
                     obj.SetActive(false);
                     pooledObjects.Add(obj);
                     return obj;

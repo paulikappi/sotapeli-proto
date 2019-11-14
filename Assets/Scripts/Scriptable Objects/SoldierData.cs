@@ -8,7 +8,6 @@ public class SoldierData : ScriptableObject
     [SerializeField] float speed;
     [SerializeField] float acceleration;
     [SerializeField] Formation squad;
-    [SerializeField] Company company;
     [SerializeField] ArmyData army;
     [SerializeField] FactionData faction;
 }

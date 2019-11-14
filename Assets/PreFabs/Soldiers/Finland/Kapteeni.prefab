@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1970641768}
   - component: {fileID: 563257950740104330}
   m_Layer: 0
-  m_Name: "J\xE4\xE4k\xE4ri"
+  m_Name: Soldier_Grey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subordinates: []
-  commanders: []
-  faction: {fileID: 0}
+  commandingFormations: []
+  faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
 --- !u!54 &1970641768
 Rigidbody:
   m_ObjectHideFlags: 0

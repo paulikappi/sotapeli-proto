@@ -6,8 +6,10 @@ using UnityEngine.AI;
 [System.Serializable]
 public class WarObject : MonoBehaviour
 {
-    public List<FormationData> commandingFormations;
-    [SerializeField] FactionData faction;
+    [SerializeField] List<GameObject> subordinates;
+    public List<GameObject> commanders;
+    public FactionData Faction;
+    public Formation formation;
 
     NavMeshAgent agent;
     GameObject objective;
@@ -15,10 +17,6 @@ public class WarObject : MonoBehaviour
     public string Name
     {
         get { return transform.root.name; }
-    }
-    public FactionData Faction
-    {
-        get { return faction; }
     }
 
     void OnEnable()

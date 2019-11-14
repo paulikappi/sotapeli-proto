@@ -7,13 +7,27 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "new FormationData", menuName = "Scriptable Objects/FormationData")]
 public class FormationData : ScriptableObject
 {
-    [SerializeField] FactionData faction;
-    [SerializeField] string commanderName;
-    [SerializeField] int soldierCount;
-    public List<ObjectPoolItem> formationPrefabs;
+    public FactionData Faction;
+    string commanderName;
+    int soldierCount;
+    public GameObject Commander;
+    [HideInInspector] public ObjectPoolItem LeaderPoolItem;
+    public List<ObjectPoolItem> Subordinates;
     public int hierarchyLevel;
-    public List<FormationData> subFormations;
-    public List<FormationData> superiorFormationList;
+    [SerializeField] List<FormationData> subFormationTypes;
+    [SerializeField] List<FormationData> superiorFormationTypes;
+
+    public List<FormationData> SubFormationTypes
+        { 
+            get { return subFormationTypes; } 
+            private set { } 
+        }
+    public List<FormationData> SuperiorFormationTypes
+        { 
+        get { return superiorFormationTypes; } 
+         set { } 
+        }
+        
 
     List<Tuple<GameObject, int>> formationDB;
     /*
@@ -38,53 +52,4 @@ public class FormationData : ScriptableObject
     [SerializeField] string pistol;
     [SerializeField] int pistolAmount;
     */
-
-    public string Name
-    {
-        get { return this.name; }
-    }
-
-    private void OnEnable()
-    {
-        //SetHierarchyValues();
-    }
-
-    private void OnValidate()
-    {
-        if (subFormations != null && subFormations.Count > 0)
-        {
-            soldierCount = 0;
-            foreach (FormationData f in subFormations)
-            {
-                soldierCount += f.soldierCount;
-            }
-        }
-
-    }
-
-
-    FormationData GetSubFormation(FormationData formation)
-    {        
-        if (formation.subFormations.Count > 0)
-        {
-            return formation;
-        }
-        return null;
-    }
-
-    FormationData GetLowestSubformation (FormationData f)
-    {
-        if (f.subFormations.Count != 0)
-        {
-            int levels = f.hierarchyLevel;
-            for (int i = levels; i > 0; i--)
-            {                
-                f = f.subFormations[0];
-            }
-            return f;
-        }
-        else return f;
-    }
-    
-
 }
