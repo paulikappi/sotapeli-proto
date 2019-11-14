@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         battleController = FindObjectOfType<BattleController>();
         pooler = FindObjectOfType<ObjectPooler>();
 
-        battleController.PoolBattleFormations();
+        battleController.InitBattleFormations();
 
     }
 }

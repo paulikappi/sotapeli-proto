@@ -10,13 +10,13 @@ public class SoldierGenerator : EditorWindow
     bool groupEnabled;    
     float myFloat;
 
-    static List<Faction> factionList;
+    static List<FactionData> factionList;
     string[] factionNameList;
     static List<int> factionIndexList;
     List<GameObject> objList;
     GameManager GameManager;
 
-    [MenuItem("Window/Soldier Generator")]
+    [MenuItem("Window/SoldierData Generator")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(SoldierGenerator));
@@ -24,7 +24,7 @@ public class SoldierGenerator : EditorWindow
 
     void Start()
     {
-        factionNameList = GetScriptableObjectNameArray<Faction>();
+        factionNameList = GetScriptableObjectNameArray<FactionData>();
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Debug.Log("Game Manager set");
     }
@@ -32,7 +32,7 @@ public class SoldierGenerator : EditorWindow
     public static string[] GetScriptableObjectNameArray<T>() where T : ScriptableObject
     {
         string[] factionNameArray;
-        factionNameArray = AssetDatabase.FindAssets(typeof(Faction).Name);
+        factionNameArray = AssetDatabase.FindAssets(typeof(FactionData).Name);
         T[] a = new T[factionNameArray.Length];        
         
         for (int i = 0; i < factionNameArray.Length; i++)
@@ -56,7 +56,7 @@ public class SoldierGenerator : EditorWindow
         //EditorGUILayout.Popup(factionIndex, factionList);
        
         
-        if (GUILayout.Button("Pool Battle Formations"))
+        if (GUILayout.Button("Pool BattleData Formations"))
         {
             if (GameManager != null)
             {                

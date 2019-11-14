@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878cfbd5d75153c4787a17c21fa1e1b3, type: 3}
+  m_Name: Squad
+  m_EditorClassIdentifier: 
+  faction: {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
+  commanderName: Sergeant
+  soldierCount: 10
+  formationPrefabs:
+  - objectToPool: {fileID: 4045118329729203410, guid: dcdeaa59860b80942a00ac8784d46254,
+      type: 3}
+    amountToPool: 1
+    canExpand: 1
+  - objectToPool: {fileID: 4045118329729203410, guid: 7562da3ed33846d4bb19f4c4ba94ec8f,
+      type: 3}
+    amountToPool: 9
+    canExpand: 1
+  hierarchyLevel: 1
+  subFormations: []
+  superiorFormationList:
+  - {fileID: 0}

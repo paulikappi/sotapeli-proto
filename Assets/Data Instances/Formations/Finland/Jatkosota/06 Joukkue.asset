@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878cfbd5d75153c4787a17c21fa1e1b3, type: 3}
+  m_Name: 06 Joukkue
+  m_EditorClassIdentifier: 
+  faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
+  commanderName: "V\xE4nrikki"
+  soldierCount: 40
+  formationPrefabs:
+  - objectToPool: {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247,
+      type: 3}
+    amountToPool: 1
+    canExpand: 0
+  - objectToPool: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
+      type: 3}
+    amountToPool: 10
+    canExpand: 0
+  hierarchyLevel: 0
+  subFormations: []
+  superiorFormationList: []
