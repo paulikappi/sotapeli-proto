@@ -45,9 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Rifleman
-  commandingFormations: []
-  faction: {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
+  subordinates: []
+  commanders: []
+  Faction: {fileID: 0}
+  formation:
+    commanderPrefab: {fileID: 0}
+    formationPrefab: {fileID: 0}
+    Faction: {fileID: 0}
+    Data: {fileID: 0}
+    subFormationList: []
+    superFormationList: []
+    prefabs: []
 --- !u!195 &8619568493057545230
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -55,7 +63,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4045118329729203410}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 16

@@ -19,6 +19,6 @@ MonoBehaviour:
   factions2:
   - {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
   faction1FormationList:
-  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
-  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
-  faction2FormationList: []
+  - {fileID: 11400000, guid: 69daabef099a7ae4e8af5bda8434f855, type: 2}
+  faction2FormationList:
+  - {fileID: 11400000, guid: e76810e4a2cfc2740a51c73306df6783, type: 2}

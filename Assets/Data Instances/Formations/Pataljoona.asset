@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46f0a840cdc5b1d459d9dfdcb8a0b5d8, type: 3}
-  m_Name: Joukkue
+  m_Name: Pataljoona
   m_EditorClassIdentifier: 
-  Faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
-  Commander: {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247,
+  Faction: {fileID: 0}
+  Commander: {fileID: 4045118329729203410, guid: 4888b7b58ebd4dc479764aea2a42c21f,
     type: 3}
-  Formation: {fileID: 6737420295476957779, guid: 3a029e7b51e4f8f47991e8fe5b81baab,
+  Formation: {fileID: 8935270779321449193, guid: c8cf6391a02518a46aaf1465277261ce,
     type: 3}
   LeaderPoolItem:
     objectToPool: {fileID: 0}
@@ -26,18 +26,11 @@ MonoBehaviour:
     subordinates: []
     commanders: []
     faction: {fileID: 0}
-  Subordinates:
-  - objectToPool: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
-      type: 3}
-    amountToPool: 991
-    canExpand: 0
-    hideInHierachy: 1
-    maxCount: 0
-    subordinates: []
-    commanders:
-    - {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247, type: 3}
-    faction: {fileID: 0}
+  Subordinates: []
   hierarchyLevel: 0
-  subFormationTypes: []
-  superiorFormationTypes:
+  subFormationTypes:
   - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+  superiorFormationTypes: []

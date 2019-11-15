@@ -163,11 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef64345cb7861342a3f6c18efd76150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tempList: []
   pooledObjects: []
   itemsToPool: []
   battleController: {fileID: 0}
-  pooler: {fileID: 0}
   gameManager: {fileID: 0}
+  maxPoolItems: 1000
 --- !u!1 &1979554999
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +248,9 @@ MonoBehaviour:
   battle: {fileID: 11400000, guid: ae5001bb59384ca4b87e881d709f9ed6, type: 2}
   battleFormations: []
   formationsObjects: []
+  totalFormationCount: 0
+  readyFormationCount: 0
+  poolItems: []
 --- !u!4 &1983481969
 Transform:
   m_ObjectHideFlags: 0

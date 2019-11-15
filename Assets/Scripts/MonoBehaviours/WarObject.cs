@@ -11,7 +11,7 @@ public class WarObject : MonoBehaviour
     public FactionData Faction;
     public Formation formation;
 
-    NavMeshAgent agent;
+    //NavMeshAgent agent;
     GameObject objective;
 
     public string Name
@@ -21,6 +21,7 @@ public class WarObject : MonoBehaviour
 
     void OnEnable()
     {
+        /*
         agent = GetComponent<NavMeshAgent>();
 
         if (objective != null)
@@ -29,6 +30,7 @@ public class WarObject : MonoBehaviour
             agent.CalculatePath(objective.transform.position, path);
             agent.SetPath(path);
         }
+        */
     }
 }
 

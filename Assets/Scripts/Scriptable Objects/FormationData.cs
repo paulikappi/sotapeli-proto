@@ -11,18 +11,19 @@ public class FormationData : ScriptableObject
     string commanderName;
     int soldierCount;
     public GameObject Commander;
+    public GameObject Formation;
     [HideInInspector] public ObjectPoolItem LeaderPoolItem;
     public List<ObjectPoolItem> Subordinates;
     public int hierarchyLevel;
     [SerializeField] List<FormationData> subFormationTypes;
     [SerializeField] List<FormationData> superiorFormationTypes;
 
-    public List<FormationData> SubFormationTypes
+    public List<FormationData> SubFormations
         { 
             get { return subFormationTypes; } 
             private set { } 
         }
-    public List<FormationData> SuperiorFormationTypes
+    public List<FormationData> SuperiorFormations
         { 
         get { return superiorFormationTypes; } 
          set { } 

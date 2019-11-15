@@ -20,7 +20,8 @@ public class BattleController : MonoBehaviour
     [SerializeField] List<GameObject> formationsObjects;
     GameObject formationObject;
 
-    int hierarchyCount;
+    public int totalFormationCount;
+    public int readyFormationCount;
     [SerializeField] List<ObjectPoolItem> poolItems = new List<ObjectPoolItem>();
 
     public BattleData Battle
@@ -30,15 +31,14 @@ public class BattleController : MonoBehaviour
     }
     private void Awake()
     {
-        GetBattleData(battle);
         SharedInstance = this;
+        GetBattleData(battle);        
         pooler = GameObject.Find("ObjectPooler").GetComponent<ObjectPooler>();        
     }
 
     void Start()
     {
         InitFormations();
-        PoolBattleFormationObjects();
     }
 
     void InitFormations()
@@ -49,7 +49,7 @@ public class BattleController : MonoBehaviour
             {
                 Formation formationInstance = new Formation();
                 formationInstance.Data = formationData;
-                formationInstance.PoolSubFormations();
+                formationInstance.Initialize();
             }            
         }        
     }
@@ -104,10 +104,8 @@ public class BattleController : MonoBehaviour
         battle.faction2FormationList = faction2FormationList;
     }
 
-    //Called from game manager
-    //Creates gameobjects for each formation and sets their commanders and subordinates
-    public void PoolBattleFormationObjects()
+    public void OnFormationsReady() 
     {
-        
+        ObjectPooler.SharedInstance.OptimizePoolList();
     }
 }

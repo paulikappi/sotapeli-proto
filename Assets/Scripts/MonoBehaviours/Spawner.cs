@@ -89,7 +89,7 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0 ; i < spawnCount; i++)
         {
-            obj = FindObjectOfType<ObjectPooler>().GetPooledObjectByName(obj.name + "(Clone)");
+            obj = FindObjectOfType<ObjectPooler>().ActivatePooledObjectByName(obj.name + "(Clone)");
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
             obj.SetActive(true);
@@ -110,7 +110,7 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < instanceCount; i++)
             {
-                GameObject soldier = ObjectPooler.SharedInstance.GetPooledObjectByName("SoldierGreen" + "(Clone)");
+                GameObject soldier = ObjectPooler.SharedInstance.ActivatePooledObjectByName("SoldierGreen" + "(Clone)");
                 soldierData = soldier.GetComponent<WarObject>();
                 if (soldier != null)
                 {
@@ -132,7 +132,7 @@ public class Spawner : MonoBehaviour
     {
         if (spawnedCount < instanceCount)
         {
-            GameObject soldier = ObjectPooler.SharedInstance.GetPooledObjectByName("Soldier_Green" + "(Clone)");
+            GameObject soldier = ObjectPooler.SharedInstance.ActivatePooledObjectByName("Soldier_Green" + "(Clone)");
             if (soldier != null)
             {
                 soldier.transform.position = transform.position;

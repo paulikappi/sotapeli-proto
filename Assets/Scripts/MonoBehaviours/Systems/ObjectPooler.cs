@@ -6,8 +6,10 @@ using UnityEngine;
 public class ObjectPoolItem
 {
     public GameObject objectToPool;
-    public int amountToPool = 1;
+    public int amountToPool;
     public bool canExpand = true;
+    public bool hideInHierachy = false;
+    public int maxCount;
 
     public List<GameObject> subordinates;
     public List<GameObject> commanders;
@@ -15,13 +17,15 @@ public class ObjectPoolItem
 }
 
 public class ObjectPooler : MonoBehaviour
-{    
-    public List<GameObject> pooledObjects = new List<GameObject>();
+{
+    public List<ObjectPoolItem> tempList;
+    public List<GameObject> pooledObjects;
     public List<ObjectPoolItem> itemsToPool;
     
     public BattleController battleController;
     public static ObjectPooler SharedInstance;
     public GameManager gameManager;
+    public int maxPoolItems;
 
     private void Awake()
     {
@@ -29,73 +33,38 @@ public class ObjectPooler : MonoBehaviour
     }
 
     private void Start()
-    {
-        
+    {   
         gameManager = FindObjectOfType<GameManager>();
         battleController = FindObjectOfType<BattleController>();
-        
-
-        Invoke("PoolObjects", 0.5f);
     }
 
     public void PoolObjects()
-    {        
+    {
         if (itemsToPool != null)
-        {            
-            Debug.Log("Pool");
-
+        {
             foreach (ObjectPoolItem item in itemsToPool)
             {
-                for (int i = 0; i < item.amountToPool; i++)
+                if (item != null)
                 {
-                    if (item.objectToPool != null)
+                    for (int i = 0; i < item.amountToPool; i++)
                     {
-                        GameObject obj = (GameObject)Instantiate(item.objectToPool);
-                        if (obj.GetComponent<WarObject>() == true)
+                        if (item.objectToPool != null)
                         {
-                            WarObject objData = obj.GetComponent<WarObject>();
-                            objData.Faction = item.faction;
+                            GameObject obj = Instantiate(item.objectToPool);
+                            obj.SetActive(false);
+                            if (item.hideInHierachy)
+                            {
+                                obj.hideFlags = HideFlags.HideInHierarchy;
+                            }                            
+                            pooledObjects.Add(obj);
                         }
-                        obj.SetActive(false);
-                        pooledObjects.Add(obj);
-                    }                    
+                    }
                 }
-            }            
+            }
+            Debug.Log("Pooled item types: " + itemsToPool.Count);
         }        
     }
 
-
-
-    /*
-    public void PoolSubFormations()
-    {
-        if (objectPooler != null)
-        {            
-            foreach (ObjectPoolItem g in formation.Subordinates)
-            {
-                if (g.objectToPool.GetComponent<WarObject>() != null)
-                {
-                    WarObject war = g.objectToPool.GetComponent<WarObject>();
-                    war.commandingFormations.Add(this);
-                }
-
-                objectPooler.AddGameObject(g);
-            }
-            if (SubFormationTypes.Count > 0)
-            {
-                foreach (FormationData subFormation in SubFormationTypes)
-                {
-                    subFormation.PoolSubFormations();
-                    subFormation.superiorFormationList.Add(this);
-                }
-            }
-            PoolObjects();
-        }
-        else
-        {
-            Debug.LogError(this.name + " missing objectPooler");
-        }
-    }*/
     public void AddPoolItem(ObjectPoolItem item)
     {
         itemsToPool.Add(item);
@@ -123,7 +92,7 @@ public class ObjectPooler : MonoBehaviour
         pooledObjects.Add(item);
     }
 
-    public GameObject GetPooledObjectByName (string name)
+    public GameObject ActivatePooledObjectByName (string name)
     {
         for (int i = 0; i < pooledObjects.Count; i++)
         {
@@ -138,7 +107,7 @@ public class ObjectPooler : MonoBehaviour
             {
                 if (item.canExpand)
                 {
-                    GameObject obj = (GameObject)Instantiate(item.objectToPool);
+                    GameObject obj = Instantiate(item.objectToPool);
                     obj.SetActive(false);
                     pooledObjects.Add(obj);
                     return obj;
@@ -146,5 +115,35 @@ public class ObjectPooler : MonoBehaviour
             }            
         }
         return null;
+    }
+    public void OptimizePoolList()
+    {        
+        List<ObjectPoolItem> tempList = new List<ObjectPoolItem>();
+        
+        foreach (ObjectPoolItem item in itemsToPool)
+        {
+            if (item != null && item.objectToPool != null)
+            {
+                if (tempList.Exists(x => x.objectToPool.name == item.objectToPool.name))
+                {
+                    ObjectPoolItem tempItem = tempList.Find(x => x.objectToPool.name == item.objectToPool.name);
+                    tempItem.amountToPool++;
+                    Debug.Log("found duplicate " + tempItem.objectToPool.name);         
+                }
+                else
+                {
+                    tempList.Add(item);
+                    Debug.Log("Added: " + item.objectToPool.name);
+                }
+            }
+        }
+
+        itemsToPool = tempList;
+
+        itemsToPool.TrimExcess();
+
+        Debug.Log("Optimized Pool List");
+        
+        PoolObjects();
     }
 }

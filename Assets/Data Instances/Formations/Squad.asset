@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46f0a840cdc5b1d459d9dfdcb8a0b5d8, type: 3}
-  m_Name: Joukkue
+  m_Name: Squad
   m_EditorClassIdentifier: 
-  Faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
-  Commander: {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247,
+  Faction: {fileID: 0}
+  Commander: {fileID: 4045118329729203410, guid: dcdeaa59860b80942a00ac8784d46254,
     type: 3}
-  Formation: {fileID: 6737420295476957779, guid: 3a029e7b51e4f8f47991e8fe5b81baab,
+  Formation: {fileID: 6822191980373893108, guid: 5ace8706431db0e4da682a8f9a1d8cf8,
     type: 3}
   LeaderPoolItem:
     objectToPool: {fileID: 0}
-    amountToPool: 1
+    amountToPool: 0
     canExpand: 1
     hideInHierachy: 0
     maxCount: 0
@@ -27,17 +27,15 @@ MonoBehaviour:
     commanders: []
     faction: {fileID: 0}
   Subordinates:
-  - objectToPool: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
+  - objectToPool: {fileID: 4045118329729203410, guid: 7562da3ed33846d4bb19f4c4ba94ec8f,
       type: 3}
-    amountToPool: 991
+    amountToPool: 10
     canExpand: 0
     hideInHierachy: 1
     maxCount: 0
     subordinates: []
-    commanders:
-    - {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247, type: 3}
+    commanders: []
     faction: {fileID: 0}
   hierarchyLevel: 0
   subFormationTypes: []
-  superiorFormationTypes:
-  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+  superiorFormationTypes: []
