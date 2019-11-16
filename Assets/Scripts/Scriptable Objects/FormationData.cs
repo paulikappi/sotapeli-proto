@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[System.Serializable]
+public class HierarchyItem
+{
+    public GameObject GameObject;
+    public int Count;
+}
+
 [CreateAssetMenu(fileName = "new FormationData", menuName = "Scriptable Objects/FormationData")]
 public class FormationData : ScriptableObject
 {
@@ -12,11 +19,9 @@ public class FormationData : ScriptableObject
     int soldierCount;
     public GameObject Commander;
     public GameObject Formation;
-    [HideInInspector] public ObjectPoolItem LeaderPoolItem;
-    public List<ObjectPoolItem> Subordinates;
-    public int hierarchyLevel;
+    public List<HierarchyItem> Subordinates;
     [SerializeField] List<FormationData> subFormationTypes;
-    [SerializeField] List<FormationData> superiorFormationTypes;
+    [SerializeField] List<FormationData> superiorFormationTypes;    
 
     public List<FormationData> SubFormations
         { 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2688066866021029205
+--- !u!1 &6707306285499062126
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4129561809440316171}
-  - component: {fileID: -7308168785397144059}
+  - component: {fileID: 3813303626181320085}
+  - component: {fileID: -8676543845245042235}
   m_Layer: 0
   m_Name: Komppania
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4129561809440316171
+--- !u!4 &3813303626181320085
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2688066866021029205}
+  m_GameObject: {fileID: 6707306285499062126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +31,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7308168785397144059
+--- !u!114 &-8676543845245042235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2688066866021029205}
+  m_GameObject: {fileID: 6707306285499062126}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
@@ -46,3 +46,11 @@ MonoBehaviour:
   subordinates: []
   commanders: []
   Faction: {fileID: 0}
+  formation:
+    commander: {fileID: 0}
+    formationPrefab: {fileID: 6707306285499062126}
+    Faction: {fileID: 0}
+    Data: {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+    subFormationList: []
+    superFormationList: []
+    prefabs: []

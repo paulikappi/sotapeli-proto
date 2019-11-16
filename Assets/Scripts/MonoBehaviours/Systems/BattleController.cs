@@ -47,9 +47,12 @@ public class BattleController : MonoBehaviour
         {
             foreach (FormationData formationData in battleFormations)
             {
-                Formation formationInstance = new Formation();
-                formationInstance.Data = formationData;
-                formationInstance.Initialize();
+                if (formationData != null)
+                {
+                    Formation formationInstance = new Formation();
+                    formationInstance.Data = formationData;
+                    formationInstance.Initialize();
+                }                
             }            
         }        
     }

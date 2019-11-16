@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,8 @@ using UnityEngine;
 public class ObjectPoolItem
 {
     public GameObject objectToPool;
-    public int amountToPool;
+    public int AmountToPool = new int();
+
     public bool canExpand = true;
     public bool hideInHierachy = false;
     public int maxCount;
@@ -18,14 +19,16 @@ public class ObjectPoolItem
 
 public class ObjectPooler : MonoBehaviour
 {
-    public List<ObjectPoolItem> tempList;
+    List<ObjectPoolItem> tempList;
+    //[HideInInspector] 
     public List<GameObject> pooledObjects;
-    public List<ObjectPoolItem> itemsToPool;
+    //[HideInInspector] 
+    public List<ObjectPoolItem> ItemsToPool;
     
-    public BattleController battleController;
+    BattleController battleController;
     public static ObjectPooler SharedInstance;
-    public GameManager gameManager;
     public int maxPoolItems;
+    public int pooledItemsCount;
 
     private void Awake()
     {
@@ -34,57 +37,63 @@ public class ObjectPooler : MonoBehaviour
 
     private void Start()
     {   
-        gameManager = FindObjectOfType<GameManager>();
-        battleController = FindObjectOfType<BattleController>();
+        battleController = BattleController.SharedInstance;
     }
 
     public void PoolObjects()
     {
-        if (itemsToPool != null)
+        if (ItemsToPool != null)
         {
-            foreach (ObjectPoolItem item in itemsToPool)
+            foreach (ObjectPoolItem item in ItemsToPool)
             {
                 if (item != null)
                 {
-                    for (int i = 0; i < item.amountToPool; i++)
+                    for (int i = 0; i < item.AmountToPool; i++)
                     {
                         if (item.objectToPool != null)
                         {
                             GameObject obj = Instantiate(item.objectToPool);
+                            obj.name = item.objectToPool.name;
                             obj.SetActive(false);
+                            pooledItemsCount++;
                             if (item.hideInHierachy)
                             {
                                 obj.hideFlags = HideFlags.HideInHierarchy;
-                            }                            
+                            }
+                            if (pooledObjects != null)
                             pooledObjects.Add(obj);
                         }
                     }
                 }
             }
-            Debug.Log("Pooled item types: " + itemsToPool.Count);
+            //Debug.Log("Pooled items: " + ItemsToPool.Count);
+            //ItemsToPool.Clear();
         }        
     }
 
     public void AddPoolItem(ObjectPoolItem item)
     {
-        itemsToPool.Add(item);
+        if (ItemsToPool != null)
+        ItemsToPool.Add(item);
     }
 
     public void AddPoolItemList(List<ObjectPoolItem> list)
     {
         foreach (ObjectPoolItem item in list)
         {
-            itemsToPool.Add(item);
+            ItemsToPool.Add(item);
         }
     }
     public void AddGameObject(GameObject item)
     {
         ObjectPoolItem poolitem = new ObjectPoolItem();
-        poolitem.amountToPool = 1;
+        poolitem.AmountToPool = 1;
         poolitem.canExpand = false;
         poolitem.objectToPool = item;
-
-        itemsToPool.Add(poolitem);
+        if (ItemsToPool != null)
+        {
+            ItemsToPool.Add(poolitem);
+        }        
     }
 
     public void SetGameObjectToPooledList(GameObject item)
@@ -101,7 +110,7 @@ public class ObjectPooler : MonoBehaviour
                 return pooledObjects[i];
             }
         }
-        foreach (ObjectPoolItem item in itemsToPool)
+        foreach (ObjectPoolItem item in ItemsToPool)
         {
             if (item.objectToPool.name == name)
             {
@@ -117,33 +126,75 @@ public class ObjectPooler : MonoBehaviour
         return null;
     }
     public void OptimizePoolList()
-    {        
+    {
+        /* TODO: Make work properly
+         * Combine same objects together
+         * One item per gameobject
+        */
         List<ObjectPoolItem> tempList = new List<ObjectPoolItem>();
-        
-        foreach (ObjectPoolItem item in itemsToPool)
+        tempList.Clear();
+
+        foreach (ObjectPoolItem objItem in ItemsToPool)
         {
-            if (item != null && item.objectToPool != null)
+            if (tempList.Exists(x => x.objectToPool == objItem.objectToPool))
             {
-                if (tempList.Exists(x => x.objectToPool.name == item.objectToPool.name))
-                {
-                    ObjectPoolItem tempItem = tempList.Find(x => x.objectToPool.name == item.objectToPool.name);
-                    tempItem.amountToPool++;
-                    Debug.Log("found duplicate " + tempItem.objectToPool.name);         
+                ObjectPoolItem tempObj = tempList.Find(x => x.objectToPool == objItem.objectToPool);
+                if (tempObj != null)
+                {                    
+                    tempObj.AmountToPool += objItem.AmountToPool;
                 }
                 else
                 {
-                    tempList.Add(item);
-                    Debug.Log("Added: " + item.objectToPool.name);
+                    Debug.LogError("ObjectPoolItem ERROR");
+                }
+            }
+            else
+            {
+                tempList.Add(objItem);
+            }               
+            
+        }
+
+        //ItemsToPool.Clear();
+        ItemsToPool = tempList;
+
+        /*
+
+        
+        foreach (ObjectPoolItem oldItem in ItemsToPool)
+        {
+            if (oldItem != null && oldItem.objectToPool != null)
+            {
+                //check if the new list has already the item
+                // is found add amount to pool to it
+                if (newList.Exists(x => x.objectToPool.name == oldItem.objectToPool.name))
+                {
+                    newList.Find(x => x.objectToPool.name == oldItem.objectToPool.name).amountToPool += oldItem.amountToPool;
+                    Debug.Log("found duplicate " + oldItem.objectToPool.name + " amount is now: " + oldItem.amountToPool);
+                }
+                else
+                {
+                    
+                    newList.Add(oldItem);
+                    Debug.Log("Added: " + oldItem.objectToPool.name);
                 }
             }
         }
 
-        itemsToPool = tempList;
-
-        itemsToPool.TrimExcess();
-
+        ItemsToPool = newList;
+        ItemsToPool.TrimExcess();
         Debug.Log("Optimized Pool List");
+        */
+        foreach (ObjectPoolItem item in ItemsToPool)
+        {
+            Debug.Log("Pooling " + item.AmountToPool + " " + item.objectToPool );
+        }
         
+
         PoolObjects();
+    }
+    void ResizePoolItemList()
+    {
+        
     }
 }

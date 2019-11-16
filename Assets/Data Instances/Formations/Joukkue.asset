@@ -15,21 +15,12 @@ MonoBehaviour:
   Faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
   Commander: {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247,
     type: 3}
-  Formation: {fileID: 6737420295476957779, guid: 3a029e7b51e4f8f47991e8fe5b81baab,
+  Formation: {fileID: 2892749954162959027, guid: 3a029e7b51e4f8f47991e8fe5b81baab,
     type: 3}
-  LeaderPoolItem:
-    objectToPool: {fileID: 0}
-    amountToPool: 1
-    canExpand: 1
-    hideInHierachy: 0
-    maxCount: 0
   Subordinates:
-  - objectToPool: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
+  - GameObject: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
       type: 3}
-    amountToPool: 10
-    canExpand: 0
-    hideInHierachy: 1
-    maxCount: 0
+    Count: 10
   subFormationTypes: []
   superiorFormationTypes:
   - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
