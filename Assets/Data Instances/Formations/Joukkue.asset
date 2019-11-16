@@ -23,21 +23,13 @@ MonoBehaviour:
     canExpand: 1
     hideInHierachy: 0
     maxCount: 0
-    subordinates: []
-    commanders: []
-    faction: {fileID: 0}
   Subordinates:
   - objectToPool: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
       type: 3}
-    amountToPool: 991
+    amountToPool: 10
     canExpand: 0
     hideInHierachy: 1
     maxCount: 0
-    subordinates: []
-    commanders:
-    - {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247, type: 3}
-    faction: {fileID: 0}
-  hierarchyLevel: 0
   subFormationTypes: []
   superiorFormationTypes:
   - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}

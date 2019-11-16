@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8096025523806314329}
-  - component: {fileID: 7299273000071675358}
+  - component: {fileID: 2929517374424712166}
   m_Layer: 0
   m_Name: Pataljoona
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7299273000071675358
+--- !u!114 &2929517374424712166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,12 +46,3 @@ MonoBehaviour:
   subordinates: []
   commanders: []
   Faction: {fileID: 0}
-  formation:
-    commanderPrefab: {fileID: 4045118329729203410, guid: 4888b7b58ebd4dc479764aea2a42c21f,
-      type: 3}
-    formationPrefab: {fileID: 3491399929906944225}
-    Faction: {fileID: 0}
-    Data: {fileID: 11400000, guid: 69daabef099a7ae4e8af5bda8434f855, type: 2}
-    subFormationList: []
-    superFormationList: []
-    prefabs: []

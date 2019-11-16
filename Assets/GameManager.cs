@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public BattleController battleController;
-    public ObjectPooler pooler;    
-    
     private void Start()
     {        
-        battleController = FindObjectOfType<BattleController>();
-        pooler = FindObjectOfType<ObjectPooler>();
+
     }
 }

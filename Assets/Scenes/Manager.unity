@@ -163,12 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef64345cb7861342a3f6c18efd76150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempList: []
   pooledObjects: []
   itemsToPool: []
-  battleController: {fileID: 0}
-  gameManager: {fileID: 0}
   maxPoolItems: 1000
+  pooledItems: 0
 --- !u!1 &1979554999
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +176,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1979555000}
-  - component: {fileID: 1979555003}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -202,20 +199,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1979555003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979554999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c12a4be2e09fa6142a3f70787858730e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleController: {fileID: 0}
-  pooler: {fileID: 0}
 --- !u!1 &1983481967
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,10 +230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battle: {fileID: 11400000, guid: ae5001bb59384ca4b87e881d709f9ed6, type: 2}
   battleFormations: []
-  formationsObjects: []
   totalFormationCount: 0
   readyFormationCount: 0
-  poolItems: []
 --- !u!4 &1983481969
 Transform:
   m_ObjectHideFlags: 0

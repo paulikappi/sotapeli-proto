@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4129561809440316171}
-  - component: {fileID: -8204252125883503594}
+  - component: {fileID: -7308168785397144059}
   m_Layer: 0
   m_Name: Komppania
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8204252125883503594
+--- !u!114 &-7308168785397144059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,12 +46,3 @@ MonoBehaviour:
   subordinates: []
   commanders: []
   Faction: {fileID: 0}
-  formation:
-    commanderPrefab: {fileID: 4045118329729203410, guid: 7e61c457ce5fe814aadbec7ccba65b95,
-      type: 3}
-    formationPrefab: {fileID: 2688066866021029205}
-    Faction: {fileID: 0}
-    Data: {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
-    subFormationList: []
-    superFormationList: []
-    prefabs: []
