@@ -7,30 +7,29 @@ using System.IO;
 [System.Serializable]
 public class Formation
 {
-    string formationName;
-    public GameObject commander;
-    public GameObject formationPrefab;
-    public FactionData Faction;
     public FormationData Data;
+    public string formationName;
+    public GameObject commander;
+    public GameObject prefab;
+    public FactionData Faction;    
     public List<Formation> subFormationList;
     public List<Formation> superFormationList;
     string folderPath = "Assets/PreFabs/Formations/";
-
+    string commanderName;
+    int soldierCount;
+    public GameObject Commander;    
+    public List<HierarchyItem> Subordinates;
+    [SerializeField] List<FormationData> subFormationTypes;
+    [SerializeField] List<FormationData> superiorFormationTypes;
     [SerializeField] List<GameObject> prefabs;
 
-    public string Name
+    public void Initialize(FormationData formationData)
     {
-        get { return this.formationName; }
-        private set { }
-    }
-
-    public void Initialize()
-    {
-        BattleController.SharedInstance.totalFormationCount++;
-
-        if (formationName == null && Data != null)
+        Data = formationData;
+        if (Data != null)
         {
             formationName = Data.name;
+            prefab = Data.Formation;            
         }
         CreatePrefab();
     }
@@ -38,59 +37,61 @@ public class Formation
     void CreatePrefab()
     {
         //Create gameobject for formation
-        formationPrefab = new GameObject();
-        formationPrefab.name = formationName;
+        prefab = new GameObject();
+        prefab.name = formationName;
 
-        if (formationPrefab != null)
+        if (prefab != null)
         {
             //create prefab if not already existing
-            if (AssetDatabase.Contains(formationPrefab.GetInstanceID()) == false)
+            if (AssetDatabase.Contains(prefab.GetInstanceID()) == false)
             {
 
 
                 if (AssetDatabase.IsValidFolder(folderPath))
                 {
                     AssetDatabase.GUIDToAssetPath(folderPath);
-                    PrefabUtility.SaveAsPrefabAsset(formationPrefab, folderPath);
+                    PrefabUtility.SaveAsPrefabAsset(prefab, folderPath);
                 }
                 else
                 {
                     Directory.CreateDirectory(folderPath);
                     AssetDatabase.CreateFolder("Assets/PreFabs/", "Formations");
                     AssetDatabase.GUIDToAssetPath(folderPath);
-                    PrefabUtility.SaveAsPrefabAsset(formationPrefab, folderPath + formationPrefab.name + ".prefab");
+                    PrefabUtility.SaveAsPrefabAsset(prefab, folderPath + prefab.name + ".prefab");
                 }
-                Object.Destroy(formationPrefab);
+                Object.Destroy(prefab);
             }
         }
-        Pool();
+        BattleController.SharedInstance.initializedFormations++;
+        //Debug.Log("Initialized formation: " + this.formationName);
     }
-    void Pool()
+
+    public void Pool()
     {
         // Check if Formation has a prefab reference
         if (Data.Formation != null)
         {
-            formationPrefab = Data.Formation;
-            ObjectPooler.SharedInstance.AddGameObject(formationPrefab);
+            prefab = Data.Formation;
+            ObjectPooler.SharedInstance.AddGameObject(prefab);
 
-            WarObject warObject = formationPrefab.AddComponent<WarObject>();
+            WarObject warObject = prefab.AddComponent<WarObject>();
             warObject.formation = this;
             //Debug.Log("Scriptable object has a prefab: " + formationPrefab.name);
         }
         // There is a prefab in the database
         else if (AssetDatabase.FindAssets(Data.name) != null)
         {
-            if (folderPath != null && formationPrefab != null)
+            if (folderPath != null && prefab != null)
             {
-                formationPrefab = (AssetDatabase.LoadAssetAtPath<GameObject>(folderPath + formationPrefab.name + ".prefab"));
-                ObjectPooler.SharedInstance.AddGameObject(formationPrefab);
-                Data.Formation = formationPrefab;
+                prefab = (AssetDatabase.LoadAssetAtPath<GameObject>(folderPath + prefab.name + ".prefab"));
+                ObjectPooler.SharedInstance.AddGameObject(prefab);
+                Data.Formation = prefab;
 
                 //Debug.Log("No prefab in scriptable object. Prefab found from asset database: " + formationPrefab.name);
 
-                if (formationPrefab.TryGetComponent(out WarObject wo) == false)
+                if (prefab.TryGetComponent(out WarObject wo) == false)
                 {
-                    WarObject warObject = formationPrefab.AddComponent<WarObject>();
+                    WarObject warObject = prefab.AddComponent<WarObject>();
                     warObject.formation = this;
                     //Debug.Log("Added warcomponent");
                 }
@@ -102,7 +103,7 @@ public class Formation
         }
         else
         {
-            Debug.LogError("FormationERROR: Formation doesn't have prefab: " + formationPrefab.name);
+            Debug.LogError("FormationERROR: Formation doesn't have prefab: " + prefab.name);
         }
 
         //pool formation's commander prefab
@@ -111,74 +112,25 @@ public class Formation
             commander = Data.Commander;
             ObjectPooler.SharedInstance.AddGameObject(commander);
         }
-        else 
+        else
         {
-            Debug.LogError("Formation Commander ERROR: " + this.Name);
+            Debug.LogError("Formation Commander ERROR: " + this.formationName);
         }
-        
         PoolSubordinates();
     }
     void PoolSubordinates()
     {
-        
         if (Data.Subordinates.Count > 0)
-        {            
+        {
             foreach (HierarchyItem item in Data.Subordinates)
             {
                 ObjectPoolItem newItem = new ObjectPoolItem();
                 newItem.AmountToPool = item.Count;
                 newItem.objectToPool = item.GameObject;
                 ObjectPooler.SharedInstance.AddPoolItem(newItem);
-            }            
-        }
-        PoolSubformations();
-    }
-
-    void PoolSubformations()
-    {
-        // Pool formation's prefabs
-
-        if (Data.SubFormations.Count > 0)
-        {
-            // go through subformation tree
-            foreach (FormationData subFormationData in Data.SubFormations)
-            {
-                //Debug.Log("Formation has subformation: " + Data.name + " > " + subFormationData.name);
-                if (subFormationData != null)
-                {
-                    Formation createdFormation = new Formation();
-
-                    //reference to scriptable object's data
-                    createdFormation.Data = subFormationData;
-                    if (createdFormation.superFormationList != null && createdFormation.superFormationList.Contains(this) == false)
-                    {
-                        createdFormation.superFormationList.Add(this);
-                    }
-                    //add superior formation data to subformation's scriptable object
-                    if (createdFormation.Data.SuperiorFormations.Contains(this.Data) == false)
-                    {
-                        createdFormation.Data.SuperiorFormations.Add(this.Data);
-                    }
-                    //add created subformation to this formation's list
-                    if (subFormationList != null && createdFormation != null)
-                    {
-                        subFormationList.Add(createdFormation);
-                    }
-
-                    createdFormation.Initialize();
-                }
             }
-        }
-        else
-        {
-            //Debug.Log("Formation doesn't have subformations: " + Data.name);
-        }
-
-        BattleController.SharedInstance.readyFormationCount++;
-        if (BattleController.SharedInstance.readyFormationCount == BattleController.SharedInstance.totalFormationCount)
-        {
-            BattleController.SharedInstance.OnFormationsReady();
         }
     }
 }
+
 

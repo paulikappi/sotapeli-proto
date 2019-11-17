@@ -164,9 +164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pooledObjects: []
-  itemsToPool: []
-  maxPoolItems: 1000
-  pooledItems: 0
+  ItemsToPool: []
+  maxPoolItems: 2000
+  pooledItemsCount: 0
+  hideObjectsFromHierarchy: 0
 --- !u!1 &1979554999
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,8 +231,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battle: {fileID: 11400000, guid: ae5001bb59384ca4b87e881d709f9ed6, type: 2}
   battleFormations: []
-  totalFormationCount: 0
-  readyFormationCount: 0
+  preCountedFormations: 0
+  initializedFormations: 0
+  queuedFormationDatas: 0
+  readyFormations: 0
+  readyBattleFormations: 0
+  battleFormationsCount: 0
+  formationsReady: 0
 --- !u!4 &1983481969
 Transform:
   m_ObjectHideFlags: 0

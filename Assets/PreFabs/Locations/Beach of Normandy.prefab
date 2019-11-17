@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2363358944606964616}
   - component: {fileID: -7288111361054342005}
   m_Layer: 0
-  m_Name: Omaha Beach
+  m_Name: Beach of Normandy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd23f86e044e3f4a8dc588f7f4e19aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenePath: 
+  scenePath: Assets/Scenes/Beach of Normandy.unity

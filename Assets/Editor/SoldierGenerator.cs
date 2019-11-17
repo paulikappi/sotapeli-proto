@@ -14,7 +14,6 @@ public class SoldierGenerator : EditorWindow
     string[] factionNameList;
     static List<int> factionIndexList;
     List<GameObject> objList;
-    GameManager GameManager;
 
     [MenuItem("Window/SoldierData Generator")]
     public static void ShowWindow()
@@ -24,8 +23,7 @@ public class SoldierGenerator : EditorWindow
 
     void Start()
     {
-        factionNameList = GetScriptableObjectNameArray<FactionData>();
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        factionNameList = GetScriptableObjectNameArray<FactionData>();        
         Debug.Log("Game Manager set");
     }
 
@@ -58,14 +56,6 @@ public class SoldierGenerator : EditorWindow
         
         if (GUILayout.Button("Pool BattleData Formations"))
         {
-            if (GameManager != null)
-            {                
-            }
-            else
-            {
-                Debug.LogError("Game Manager error");
-            }
-            
         }
     }
 }

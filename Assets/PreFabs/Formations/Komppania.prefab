@@ -9,7 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3813303626181320085}
-  - component: {fileID: -8676543845245042235}
+  - component: {fileID: -3556708865393550434}
+  - component: {fileID: 8900742594615429027}
+  - component: {fileID: 3207612415937557040}
+  - component: {fileID: 6774605941324166789}
   m_Layer: 0
   m_Name: Komppania
   m_TagString: Untagged
@@ -31,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8676543845245042235
+--- !u!114 &-3556708865393550434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,10 +50,103 @@ MonoBehaviour:
   commanders: []
   Faction: {fileID: 0}
   formation:
-    commander: {fileID: 0}
-    formationPrefab: {fileID: 6707306285499062126}
-    Faction: {fileID: 0}
     Data: {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+    formationName: Komppania
+    commander: {fileID: 4045118329729203410, guid: 7e61c457ce5fe814aadbec7ccba65b95,
+      type: 3}
+    prefab: {fileID: 6707306285499062126}
+    Faction: {fileID: 0}
     subFormationList: []
     superFormationList: []
+    Commander: {fileID: 0}
+    Subordinates: []
+    subFormationTypes: []
+    superiorFormationTypes: []
+    prefabs: []
+--- !u!114 &8900742594615429027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707306285499062126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subordinates: []
+  commanders: []
+  Faction: {fileID: 0}
+  formation:
+    Data: {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+    formationName: Komppania
+    commander: {fileID: 4045118329729203410, guid: 7e61c457ce5fe814aadbec7ccba65b95,
+      type: 3}
+    prefab: {fileID: 6707306285499062126}
+    Faction: {fileID: 0}
+    subFormationList: []
+    superFormationList: []
+    Commander: {fileID: 0}
+    Subordinates: []
+    subFormationTypes: []
+    superiorFormationTypes: []
+    prefabs: []
+--- !u!114 &3207612415937557040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707306285499062126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subordinates: []
+  commanders: []
+  Faction: {fileID: 0}
+  formation:
+    Data: {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+    formationName: Komppania
+    commander: {fileID: 4045118329729203410, guid: 7e61c457ce5fe814aadbec7ccba65b95,
+      type: 3}
+    prefab: {fileID: 6707306285499062126}
+    Faction: {fileID: 0}
+    subFormationList: []
+    superFormationList: []
+    Commander: {fileID: 0}
+    Subordinates: []
+    subFormationTypes: []
+    superiorFormationTypes: []
+    prefabs: []
+--- !u!114 &6774605941324166789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707306285499062126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6068de85e34b6f047b1b2c86235f97c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subordinates: []
+  commanders: []
+  Faction: {fileID: 0}
+  formation:
+    Data: {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+    formationName: Komppania
+    commander: {fileID: 4045118329729203410, guid: 7e61c457ce5fe814aadbec7ccba65b95,
+      type: 3}
+    prefab: {fileID: 6707306285499062126}
+    Faction: {fileID: 0}
+    subFormationList: []
+    superFormationList: []
+    Commander: {fileID: 0}
+    Subordinates: []
+    subFormationTypes: []
+    superiorFormationTypes: []
     prefabs: []

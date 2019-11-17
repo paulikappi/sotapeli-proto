@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Manager.unity
     guid: cff0b98d2c02920459719dcdaf71eb2c
   - enabled: 1
-    path: Assets/Scenes/SampleScene/CylinderCity.unity
+    path: Assets/Scenes/CylinderCity.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Beach of Normandy.unity
+    guid: 2406f3e801cbf3c478ec358eb113c056
   m_configObjects: {}

@@ -21,7 +21,9 @@ public class FormationData : ScriptableObject
     public GameObject Formation;
     public List<HierarchyItem> Subordinates;
     [SerializeField] List<FormationData> subFormationTypes;
-    [SerializeField] List<FormationData> superiorFormationTypes;    
+    [SerializeField] List<FormationData> superiorFormationTypes;
+
+    public int hierarchyLevel;
 
     public List<FormationData> SubFormations
         { 
@@ -33,9 +35,7 @@ public class FormationData : ScriptableObject
         get { return superiorFormationTypes; } 
          set { } 
         }
-        
 
-    List<Tuple<GameObject, int>> formationDB;
     /*
     [SerializeField] string SMG;
     [SerializeField] int SMGAmount;
