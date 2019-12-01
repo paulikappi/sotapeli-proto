@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ce3701daaedc1e478d94d1608966ddc, type: 3}
-  m_Name: Russia
+  m_Name: France
   m_EditorClassIdentifier: 
-  factionName: Soviet Union
-  nationality: Soviet
-  commanderName: Stalin
-  soldierCount: 0
-  squadCount: 0
-  companyCount: 0
-  batallionCount: 0
-  regimentCount: 0
-  divisionCount: 0
-  armyCount: 0
-  factionMaterial: {fileID: 2100000, guid: 0da9c7f1b5b9da24c872a64c9b14f830, type: 2}
-  nameList: []
-  armyList: []
-  soldierList: []
+  factionName: France
+  nationality: French
+  commanderName: General France
+  factionMaterial: {fileID: 0}
+  armyGroup: Army Group
+  army: Army
+  corps: Corps
+  division: Division
+  brigade: Brigade
+  regiment: Regiment
+  batallion: Batallion
+  company: Company
+  platoon: Platoon
+  squad: Squad
+  fireteam: Fireteam
+  soldier: Soldier
+  formationList: []

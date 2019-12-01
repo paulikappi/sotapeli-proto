@@ -54,7 +54,7 @@ public class SoldierGenerator : EditorWindow
         //EditorGUILayout.Popup(factionIndex, factionList);
        
         
-        if (GUILayout.Button("Pool BattleData Formations"))
+        if (GUILayout.Button("PoolUnits BattleData Formations"))
         {
         }
     }

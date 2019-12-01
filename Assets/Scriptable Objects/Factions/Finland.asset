@@ -12,17 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce3701daaedc1e478d94d1608966ddc, type: 3}
   m_Name: Finland
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
   factionName: Finland
   nationality: Finnish
   commanderName: Mannerheim
-  soldierCount: 500000
-  squadCount: 50000
-  companyCount: 5000
-  batallionCount: 1000
-  regimentCount: 500
-  divisionCount: 50
-  armyCount: 5
   factionMaterial: {fileID: 2100000, guid: e451f84d92fba064b9c1e4ebcb1efefb, type: 2}
-  nameList: []
-  armyList: []
+  armyGroup: "Armeijaryhm\xE4"
+  army: Armeija
+  corps: Armeijakunta
+  division: Divisioona
+  brigade: Prikaati
+  regiment: Rykmentti
+  batallion: Pataljoona
+  company: Komppania
+  platoon: Joukkue
+  squad: "Ryhm\xE4"
+  fireteam: Partio
+  soldier: Sotilas
+  recruits: 0
+  trainingSpeed: 1
+  soldiersPerMinute: 60
+  soldierCount: 0
   soldierList: []
+  formationList:
+  - formationName: 1. Divisioona
+    hierarchyLevel: 0
+    Commander:
+      rank: Kenraali
+      unitName: Kalle Kaali
+      faction: {fileID: 0}
+      prefab: {fileID: 0}
+  surnames: []

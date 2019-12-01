@@ -17,12 +17,12 @@ public class FormationData : ScriptableObject
     public FactionData Faction;
     string commanderName;
     int soldierCount;
-    public GameObject Commander;
-    public GameObject Formation;
-    public List<HierarchyItem> Subordinates;
-    [SerializeField] List<FormationData> subFormationTypes;
-    [SerializeField] List<FormationData> superiorFormationTypes;
+    public GameObject prefab;
 
+    public Commander Commander;
+    [HideInInspector] public List<HierarchyItem> Subordinates;
+    [HideInInspector] public List<FormationData> subFormationTypes;
+    [HideInInspector] public List<FormationData> superiorFormationTypes;
     public int hierarchyLevel;
 
     public List<FormationData> SubFormations

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce3701daaedc1e478d94d1608966ddc, type: 3}
   m_Name: USA
   m_EditorClassIdentifier: 
-  factionName: U.S.A.
-  nationality: U.S.
+  factionName: USA
+  nationality: US
   commanderName: Roosevelt
-  soldierCount: 100000
-  squadCount: 10000
-  companyCount: 1000
-  batallionCount: 200
-  regimentCount: 100
-  divisionCount: 10
-  armyCount: 1
+  soldierCount: 0
+  squadCount: 0
+  companyCount: 0
+  batallionCount: 0
+  regimentCount: 0
+  divisionCount: 0
+  armyCount: 0
   factionMaterial: {fileID: 2100000, guid: 93e2b2125c492f146816b5218a1a29f9, type: 2}
   nameList: []
   armyList: []

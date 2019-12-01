@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Commander : MonoBehaviour
-{
-    [SerializeField] SoldierData commanderSoldier;
-
+[System.Serializable]
+public class Commander : Unit
+{    
+    
 }

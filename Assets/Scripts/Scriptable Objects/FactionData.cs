@@ -6,106 +6,139 @@ using System.IO;
 
 
 [CreateAssetMenu(fileName = "new FactionData", menuName = "Scriptable Objects/FactionData", order = 1)]
-public class FactionData : ScriptableObject 
+public class FactionData : ScriptableObject
 
-{ 
+{
+    public Sprite flag;
     [SerializeField] string factionName;
     [SerializeField] string nationality;
     [SerializeField] string commanderName;
-    [SerializeField] int soldierCount;
-    [SerializeField] int squadCount;
-    [SerializeField] int companyCount;
-    [SerializeField] int batallionCount;
-    [SerializeField] int regimentCount;
-    [SerializeField] int divisionCount;
-    
-    [SerializeField] int armyCount;
-
-    int createdArmies;
-    int createdSoldiers;
-
     [SerializeField] Material factionMaterial;
-    [SerializeField] List<string> nameList;
-    string nameJson = "Assets/GermanSurnames.json";
+    
+    [SerializeField] string armyGroup = "Army Group";
+    [SerializeField] string army = "Army";
+    [SerializeField] string corps = "Corps";
+    [SerializeField] string division = "Division";
+    [SerializeField] string brigade = "Brigade";
+    [SerializeField] string regiment = "Regiment";
+    [SerializeField] string batallion = "Batallion";
+    [SerializeField] string company = "Company";
+    [SerializeField] string platoon = "Platoon";
+    [SerializeField] string squad = "Squad";
+    [SerializeField] string fireteam = "Fireteam";
+    [SerializeField] string soldier = "Soldier";
 
-    [SerializeField] List<ArmyData> armyList = new List<ArmyData>();
-    [SerializeField] List<SoldierData> soldierList = new List<SoldierData>();
+    [SerializeField] int recruits;
+    public float trainingSpeed = 1f;
+    public int soldiersPerMinute = 200;
+    [SerializeField] int soldierCount;    
+    public List<Unit> soldierList;
+    public List<Formation> formationList = new List<Formation>();
+    public List<string> surnames = new List<string>();
+    RecruitTrainer trainer = new RecruitTrainer();
 
     public string Name
     {
         get { return factionName; }
     }
-    /*
+    
     private void OnEnable()
     {
+        //WriteSurnameListToDisk();
+        if (surnames.Count < 1)
+        {
+            GenerateSurnameListFromCSV();
+        }
+        if (trainer != null)
+        {
+            trainer.faction = this;
+            RecruitTroops();            
+        }        
+
+        /*
+        string nameJson = "Assets/GermanSurnames.json";
         string filePath = Path.Combine(Application.streamingAssetsPath, nameJson);
         string json = JsonUtility.ToJson(filePath);
         char sep = char.Parse(",");
 
         string[] germanSurnames = json.Split(sep);
         Debug.Log(germanSurnames.Length);
-    }
-    */
-    private void OnValidate()
-    {
-        squadCount = Mathf.RoundToInt(soldierCount / 10);       //10
-        companyCount = Mathf.RoundToInt(squadCount / 10);       //100
-        batallionCount = Mathf.RoundToInt(companyCount / 5);    //500
-        regimentCount = Mathf.RoundToInt(batallionCount / 2);   //1,000
-        divisionCount = Mathf.RoundToInt(regimentCount / 10);   //10,000        
-        armyCount = Mathf.RoundToInt(divisionCount / 10);       //100,000
-        
-        //CreateSoldier();
+        */
     }
 
-    void CheckFolder(string path)
+    public void Initialize() 
     {
-        if (Directory.Exists(path) == false)
+        Faction faction = new Faction();
+        faction.initData = this;
+    }
+
+    void RecruitTroops()
+    {
+        trainer.InitRecruits(recruits);
+
+    }
+
+    void WriteSurnameListToJSON()
+    {
+        string filePath = Application.dataPath + "/Text/" + factionName + ".json";
+        if (AssetDatabase.AssetPathToGUID(filePath) != null)
+        {
+            SurnameListObject surnameListObject = new SurnameListObject();
+            foreach (string name in surnames)
+            {
+                surnameListObject.surnameList.Add(name);
+            }
+            string json = JsonUtility.ToJson(surnameListObject);
+            
+            File.WriteAllText(filePath, json);
+        }
+    }
+
+    void GenerateSurnameListFromCSV()
+    {
+        string csvPath = "Text/" + factionName + ".csv";
+        string filePath = Path.Combine(Application.dataPath, csvPath);
+        if (File.Exists(filePath))
+        {
+            surnames.Clear();
+            StreamReader reader = new StreamReader(filePath);
+            string nameCSV = reader.ReadToEnd();
+            reader.Close();
+
+            char lineSeparator = '\n';
+            char fieldSeparator = ',';
+            string[] lines = nameCSV.Split(lineSeparator);
+            foreach (string line in lines)
+            {
+                string[] fields = nameCSV.Split(fieldSeparator);
+                foreach (string field in fields)
+                {
+                    if (surnames.Contains(field) == false)
+                    {
+                        surnames.Add(field);
+                    }
+                }
+            }
+        }
+    }
+
+
+    bool CheckAndCreateFolder(string path)
+    {
+        bool check = Directory.Exists(path);
+        if (!check)
         {
             Directory.CreateDirectory(path);
         }
+        return check;
     }
 
     void CreateScriptableObject<T>() where T : ScriptableObject
     {
         string tType = typeof(T).ToString();
-        CheckFolder("Assets/Scriptable Objects/" + tType + "s/");
+        CheckAndCreateFolder("Assets/Scriptable Objects/" + tType + "s/");
         //double temp = (double)typeof(FactionData).GetProperty(tType).GetValue(this);
     }
-
-    void CreateSoldier() {
-
-        CheckFolder("Assets/Scriptable Objects/Soldiers/");
-
-        if (createdSoldiers != soldierList.Count)
-        {
-            createdSoldiers = soldierList.Count;
-        }
-
-        while (soldierList.Count < soldierCount)
-        {
-            createdSoldiers++;
-            string newSoldierName = createdSoldiers.ToString();
-            SoldierData newSoldier = ScriptableObject.CreateInstance<SoldierData>();
-            soldierList.Add(newSoldier);
-            AssetDatabase.CreateAsset(newSoldier, "Assets/Scriptable Objects/Soldiers/" + factionName + " " + newSoldierName + ".asset");
-            AssetDatabase.SaveAssets();
-        }        
-    }
-
-    void CreateArmy()
-    {
-        createdArmies++;
-        string newArmyName = createdArmies + ". " + nationality + " ArmyData";
-        ArmyData newArmy = ScriptableObject.CreateInstance<ArmyData>();
-        AssetDatabase.CreateAsset(newArmy, "Assets/Scriptable Objects/Armies/" + newArmyName + ".asset");
-        AssetDatabase.SaveAssets();
-        armyList.Add(newArmy);
-    }
-
-    void ArrangeTroops()
-    {
-        //armyCount = Mathf.RoundToInt(soldierCount / 1000);
-        
-    }
 }
+
+

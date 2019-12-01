@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Joukkue
   m_EditorClassIdentifier: 
   Faction: {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
-  Commander: {fileID: 4045118329729203410, guid: ffd6f8fa227c1a54781e1075810c0247,
-    type: 3}
-  Formation: {fileID: 2892749954162959027, guid: 3a029e7b51e4f8f47991e8fe5b81baab,
-    type: 3}
+  prefab: {fileID: 0}
+  Commander:
+    Name: 
+    prefab: {fileID: 0}
   Subordinates:
   - GameObject: {fileID: 4045118329729203410, guid: 9908cee4f1517a6449076b6d03609c1d,
       type: 3}
     Count: 10
   subFormationTypes: []
-  superiorFormationTypes:
-  - {fileID: 11400000, guid: 817464d5bffc58a43855119889f0088d, type: 2}
+  superiorFormationTypes: []
+  hierarchyLevel: 0

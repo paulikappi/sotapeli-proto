@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleLocation: {fileID: 1822512382278089717, guid: 76f8890b91e642a499b6ed85a96eb793,
     type: 3}
-  factions1:
-  - {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
-  factions2:
-  - {fileID: 11400000, guid: b8e235b612f4e414989365c04804ed6a, type: 2}
-  faction1FormationList:
-  - {fileID: 11400000, guid: 69daabef099a7ae4e8af5bda8434f855, type: 2}
-  faction2FormationList:
-  - {fileID: 0}
+  battlesides:
+  - battlesideName: Team Red
+    factionList:
+    - {fileID: 11400000, guid: 8787dae57dcce374a86b95436673edfc, type: 2}
+    formations: []
+  - battlesideName: Team Orange
+    factionList:
+    - {fileID: 11400000, guid: 2f34edd1b27674c4188610737178b6db, type: 2}
+    formations: []

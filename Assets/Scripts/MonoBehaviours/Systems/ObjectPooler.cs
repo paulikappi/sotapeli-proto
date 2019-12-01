@@ -10,11 +10,11 @@ public class ObjectPoolItem
 
     public bool canExpand = true;
     public bool hideInHierachy = false;
-    public int maxCount;
+    int maxCount;
 
-    public List<GameObject> subordinates;
-    public List<GameObject> commanders;
-    public FactionData faction;
+    List<GameObject> subordinates;
+    List<GameObject> commanders;
+    FactionData faction;
 }
 
 public class ObjectPooler : MonoBehaviour
@@ -61,6 +61,7 @@ public class ObjectPooler : MonoBehaviour
                         }
                         if (pooledObjects != null)
                             pooledObjects.Add(obj);
+                        
                     }
                 }
             }
@@ -159,6 +160,8 @@ public class ObjectPooler : MonoBehaviour
         ItemsToPool = tempList;
         //Debug.Log("Pooling optimized: " + ItemsToPool.Count);
         
+        //Instantiate units
+
         if (pooledItemsCount > maxPoolItems)
         {
             ResizePoolItemList();
@@ -176,7 +179,7 @@ public class ObjectPooler : MonoBehaviour
         float max = maxPoolItems;
         float poolFactor = items / max;
 
-        //Debug.Log("Pool divide factor is: " + poolFactor.ToString());
+        //Debug.Log("PoolUnits divide factor is: " + poolFactor.ToString());
         //Debug.Log("item count old: " + pooledItemsCount);
         pooledItemsCount = 0;
         foreach (ObjectPoolItem item in ItemsToPool)

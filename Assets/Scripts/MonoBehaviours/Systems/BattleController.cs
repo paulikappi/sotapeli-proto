@@ -9,31 +9,18 @@ public class BattleController : MonoBehaviour
     public static BattleController SharedInstance;
     [SerializeField] BattleData battle;
     ObjectPooler pooler;
-    List<FactionData> faction1List;
-    List<FactionData> faction2List;
-    GameObject battleLocation;
-    List<FormationData> faction1FormationList;
-    List<FormationData> faction2FormationList;
+    public List<Battleside> battlesides;
+    [SerializeField] GameObject battleLocation;
 
-    [SerializeField] List<FormationData> battleFormations;
+    public int formationCount;
+    public int unitCount;
+    public List<string> unitNames = new List<string>();
 
-    //[HideInInspector] 
-    public int preCountedFormations;
-    //[HideInInspector] 
-    public int initializedFormations;
-    //[HideInInspector] 
-    public int queuedFormationDatas;
-    //[HideInInspector] 
-    public int readyFormations;
-    //[HideInInspector] 
-    public int readyBattleFormations;
-    //[HideInInspector] 
-    public int battleFormationsCount;
-
-    public Queue<FormationData> formationDataQueue = new Queue<FormationData>();
-    public Queue<Formation> formationQueue = new Queue<Formation>();
-
-    public bool formationsReady;
+    [SerializeField] List<Formation> battleFormations;
+    
+    //public Queue<FormationData> formationDataQueue = new Queue<FormationData>();
+    public Queue<Formation> formationQueue;
+    
 
     public BattleData Battle
     {
@@ -43,16 +30,18 @@ public class BattleController : MonoBehaviour
     private void Awake()
     {
         SharedInstance = this;
-        GetBattleData(battle);        
-        pooler = GameObject.Find("ObjectPooler").GetComponent<ObjectPooler>();        
+        
+        pooler = ObjectPooler.SharedInstance;        
     }
 
     void Start()
     {
-        InitFormations();        
+        GetBattleData(battle);
+        InitializeBattleSides();        
         LoadBattleScene();        
-        GetFormationQueue();
-        PoolFormationQueue();
+        InitFormationQueue();
+        //PoolFormationQueue();
+        //ObjectPooler.SharedInstance.OptimizePoolList();
     }
 
     
@@ -69,7 +58,7 @@ public class BattleController : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Location prefab ERROR: No scene defined");
+                Debug.LogError("Location ERROR: No scene defined");
             }
         }
         else
@@ -82,98 +71,81 @@ public class BattleController : MonoBehaviour
     {
         if (battle != null)
         {
-            faction1List = battle.factions1;
-            faction2List = battle.factions2;
             battleLocation = battle.Location;
-            faction1FormationList = battle.faction1FormationList;
-            faction2FormationList = battle.faction2FormationList;
-            if (faction1FormationList != null)
+
+            foreach(Battleside battleSide in battle.battlesides)
             {
-                foreach (FormationData f in faction1FormationList)
+                battlesides.Add(battleSide);
+
+                foreach (FactionData factionData in battleSide.factionList)
                 {
-                    if (f != null)
+                    foreach (Formation formation in factionData.formationList)
                     {
-                        battleFormations.Add(f);
-                    }                    
-                }
-            }
-            if (faction2FormationList != null)
-            {
-                foreach (FormationData f in faction2FormationList)
-                {
-                    if (f != null)
-                    {
-                        battleFormations.Add(f);
+                        battleFormations.Add(formation);
                     }
                 }
+                
             }
         }        
     }
 
     public void SetBattleData(GameObject location, List<FactionData> factions1, List<FactionData> factions2)
     {
-        battle.Location = location;
-        battle.factions1 = factions1;
-        battle.factions2 = factions2;
-        battle.faction1FormationList = faction1FormationList;
-        battle.faction2FormationList = faction2FormationList;
+
     }
     #endregion
 
     #region Formations
 
-    void InitFormations()
-    {        
-        if (battleFormations != null)
+    void InitializeBattleSides()
+    {   
+        foreach (Battleside battleSide in battlesides)
         {
-            //Debug.Log("Initializing Formations: " + battleFormations.Count);
-            foreach (FormationData formationData in battleFormations)
+            battleSide.Initialize();            
+            
+            foreach (FactionData factionData in battleSide.factionList)
             {
-                preCountedFormations++;
-                QueueFormationData(formationData);
-                formationData.hierarchyLevel = 0;
+                factionData.Initialize();
+                
+            }
+            foreach (Formation formation in battleSide.formations)
+            {
+                //Debug.Log("Initializing Formations: " + battleside.formations.Count);
+                QueueFormation(formation);
+                formation.hierarchyLevel = 0;
                 //Debug.Log("Battle formation queued");
             }
-            
             //Debug.Log("Battle Formations ready");
-        }
-        else
-        {
-            Debug.LogError("BATTLE ERROR, no formations in battle");
-        }
+        }        
     }
 
 
-    void QueueFormationData(FormationData formationData)        
+    void QueueFormation(Formation formation)        
     {
+        //queues every formation scriptable objects to get initialized
+
         //Debug.Log("Formation queued: " + formationData.name + " level: " + formationData.hierarchyLevel);
-        formationDataQueue.Enqueue(formationData);
-        if (formationData.SubFormations.Count > 0)
+        if (formationQueue != null)
         {
-            foreach (FormationData subFormationData in formationData.SubFormations)
-            {
-                if (subFormationData != null)
-                {
-                    subFormationData.hierarchyLevel = formationData.hierarchyLevel + 1;
-                    preCountedFormations++;
-                    QueueFormationData(subFormationData);                    
-                }                
-            }
+            formationQueue.Enqueue(formation);
+
+            //Debug.Log("QueueFormationData finished: " + formationData.name) ;
         }
-        //Debug.Log("QueueFormationData finished: " + formationData.name) ;
+
     }
 
-    void GetFormationQueue()
+    void InitFormationQueue()
     {
-        int count = formationDataQueue.Count;
-
-        for (int i = 0; i < count; i++)
+        if (formationQueue != null)
         {
-            FormationData data = formationDataQueue.Dequeue();
-            Formation formation = new Formation();
-            formation.Initialize(data);
-            formationQueue.Enqueue(formation);
-        } 
+            int count = formationQueue.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                Formation formation = formationQueue.Dequeue();
+                formation.Initialize();
+            }
+        }        
     }
 
     void PoolFormationQueue()
@@ -187,9 +159,8 @@ public class BattleController : MonoBehaviour
             {
                 Formation poolFormation = formationQueue.Dequeue();
                 //Debug.Log("Pooling formation: " + poolFormation.formationName);
-                poolFormation.Pool();
-            }
-            ObjectPooler.SharedInstance.OptimizePoolList();
+                poolFormation.PoolUnits();
+            }            
         }
         else
         {

@@ -7,30 +7,41 @@ using System.IO;
 [System.Serializable]
 public class Formation
 {
-    public FormationData Data;
+
     public string formationName;
-    public GameObject commander;
-    public GameObject prefab;
-    public FactionData Faction;    
-    public List<Formation> subFormationList;
-    public List<Formation> superFormationList;
+    //public FormationData initData;
+    //public Sprite formationFlag;
+    [HideInInspector] public int hierarchyLevel;
+    GameObject prefab;
+    FactionData Faction;
     string folderPath = "Assets/PreFabs/Formations/";
     string commanderName;
     int soldierCount;
-    public GameObject Commander;    
-    public List<HierarchyItem> Subordinates;
-    [SerializeField] List<FormationData> subFormationTypes;
-    [SerializeField] List<FormationData> superiorFormationTypes;
-    [SerializeField] List<GameObject> prefabs;
+    List<HierarchyItem> Subordinates;
+    public Commander Commander;
+    List<Unit> units;
+    List<ObjectPoolItem> poolItemList = new List<ObjectPoolItem>();
+    public Formation superiorFormation;
 
-    public void Initialize(FormationData formationData)
+
+    public void Initialize()
     {
-        Data = formationData;
-        if (Data != null)
+        Formation formation = new Formation();
+        BattleController.SharedInstance.formationCount++;
+    }
+
+    public void InitializeData(FormationData formationData)
+    {
+        
+        /*
+        initData = formationData;
+        if (initData != null)
         {
-            formationName = Data.name;
-            prefab = Data.Formation;            
+            formationName = initData.name;
+            prefab = initData.prefab;
+            hierarchyLevel = initData.hierarchyLevel;
         }
+        */
         CreatePrefab();
     }
 
@@ -62,72 +73,125 @@ public class Formation
                 Object.Destroy(prefab);
             }
         }
-        BattleController.SharedInstance.initializedFormations++;
+
         //Debug.Log("Initialized formation: " + this.formationName);
     }
-
-    public void Pool()
+    void InitUnits()
     {
-        // Check if Formation has a prefab reference
-        if (Data.Formation != null)
-        {
-            prefab = Data.Formation;
-            ObjectPooler.SharedInstance.AddGameObject(prefab);
-
+        //if (initData.prefab != null)
+        
+            //prefab = initData.prefab;
+            /*
             WarObject warObject = prefab.AddComponent<WarObject>();
             warObject.formation = this;
+            */
             //Debug.Log("Scriptable object has a prefab: " + formationPrefab.name);
-        }
-        // There is a prefab in the database
-        else if (AssetDatabase.FindAssets(Data.name) != null)
+        
+        //else if (AssetDatabase.FindAssets(initData.name) != null)
+
+        if (folderPath != null && prefab != null)
         {
-            if (folderPath != null && prefab != null)
+            prefab = (AssetDatabase.LoadAssetAtPath<GameObject>(folderPath + prefab.name + ".prefab"));
+            //initData.prefab = prefab;
+
+            //Debug.Log("No prefab in scriptable object. Prefab found from asset database: " + formationPrefab.name);
+            /*
+            if (prefab.TryGetComponent(out WarObject wo) == false)
             {
-                prefab = (AssetDatabase.LoadAssetAtPath<GameObject>(folderPath + prefab.name + ".prefab"));
-                ObjectPooler.SharedInstance.AddGameObject(prefab);
-                Data.Formation = prefab;
+                WarObject warObject = prefab.AddComponent<WarObject>();
+                warObject.formation = this;
+                //Debug.Log("Added warcomponent");
+            }
+            else
+            {
+                wo.formation = this;
+            }
+            */
+        }
 
-                //Debug.Log("No prefab in scriptable object. Prefab found from asset database: " + formationPrefab.name);
 
-                if (prefab.TryGetComponent(out WarObject wo) == false)
+        //pool commander
+        //if (initData.Commander != null)
+
+        Unit unitInstance = new Unit();
+        //Commander = initData.Commander;
+        //unitInstance.Name = Commander.name;
+        unitInstance.Init();
+
+
+        //InitSubUnits();
+    } 
+
+    public void QueueSubFormations()
+    {
+        /*
+        if (subFormations.Count > 0)
+        {
+            for (int i = 0; i < subFormations.Count; i++)
+            //foreach (Formation subFormation in subFormations)
+            {
+                string subFormation = subFormations[i];
+                if (subFormation != null)
                 {
-                    WarObject warObject = prefab.AddComponent<WarObject>();
-                    warObject.formation = this;
-                    //Debug.Log("Added warcomponent");
-                }
-                else
-                {
-                    wo.formation = this;
+                    subFormation.hierarchyLevel = hierarchyLevel + 1;
+                    BattleController.SharedInstance.formationQueue.Enqueue(subFormation);
                 }
             }
         }
+        */
+    }
+
+    void InitSubUnits()
+    {
+        if (units.Count > 0)
+        {
+            foreach (Unit unit in units)
+            {
+                
+             /*   ObjectPoolItem newItem = new ObjectPoolItem();
+                newItem.AmountToPool = item.Count;
+                newItem.objectToPool = item.GameObject;
+                poolItemList.Add(newItem);
+                
+                for (int i = 0; i < item.Count; i++)
+                {
+                    Unit unitInstance = new Unit();
+                    unitInstance.unitName = item.GameObject.name;
+                    unitInstance.Init();
+                }*/
+            }
+        }
+    }
+
+    public void PoolUnits()
+    {        
+        if (prefab != null)
+        {
+            // pool formation
+            ObjectPooler.SharedInstance.AddGameObject(prefab);
+        }        
         else
         {
-            Debug.LogError("FormationERROR: Formation doesn't have prefab: " + prefab.name);
+            // create formation
+            InitUnits();
+        }
+        
+        if (Commander != null)
+        {
+            // pool commander
+            ObjectPooler.SharedInstance.AddGameObject(Commander.prefab);
         }
 
-        //pool formation's commander prefab
-        if (Data.Commander != null)
-        {
-            commander = Data.Commander;
-            ObjectPooler.SharedInstance.AddGameObject(commander);
-        }
-        else
-        {
-            Debug.LogError("Formation Commander ERROR: " + this.formationName);
-        }
         PoolSubordinates();
     }
     void PoolSubordinates()
     {
-        if (Data.Subordinates.Count > 0)
+        if (poolItemList.Count > 0)
         {
-            foreach (HierarchyItem item in Data.Subordinates)
-            {
-                ObjectPoolItem newItem = new ObjectPoolItem();
-                newItem.AmountToPool = item.Count;
-                newItem.objectToPool = item.GameObject;
+            foreach (ObjectPoolItem newItem in poolItemList)
+            {                
                 ObjectPooler.SharedInstance.AddPoolItem(newItem);
+
             }
         }
     }
